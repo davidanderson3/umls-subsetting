@@ -212,7 +212,7 @@ const createCompressedTarFile = (folderPath, tarGzPath, res) => {
     });
 
     let fakeProgress = 0;
-    const step = 'Zipping';
+    const step = 'Compressing';
 
     res.write(`event: step\ndata: ${JSON.stringify({ step })}\n\n`);
 
@@ -254,63 +254,77 @@ const createCompressedTarFile = (folderPath, tarGzPath, res) => {
 
 
 app.get('/api/subsetMetathesaurusProgress', async (req, res) => {
-  const selectedSourceAbbreviations = req.query.selectedSourceAbbreviations?.split(',') || [];
+  const selectedSourceAbbreviations = (req.query.selectedSourceAbbreviations || '').split(',').filter(Boolean);
   const key = selectedSourceAbbreviations.sort().join(',');
   const entry = subsetCache[key];
-  if (entry && fs.existsSync(path.join(__dirname, entry.folder, `${entry.folder}.zip`))) {
-    console.log(`✅ Exact subset match found: ${key} → ${entry.folder}`);
 
-    const steps = ['MRSAB', 'MRRANK', 'MRDEF', 'MRREL', 'MRSAT', 'MRCONSO', 'Compute Preferences', 'Zipping'];
+  // 1) Cache‐hit path: reuse existing .tar.gz
+  if (entry) {
+    const tarGzName = `${entry.folder}.tar.gz`;
+    const originalTarGz = path.join(__dirname, entry.folder, tarGzName);
 
-    res.setHeader('Content-Type', 'text/event-stream');
-    res.setHeader('Cache-Control', 'no-cache');
-    res.setHeader('Connection', 'keep-alive');
-    res.flushHeaders();
+    if (fs.existsSync(originalTarGz)) {
+      console.log(`✅ Exact subset match found: ${key} → ${entry.folder}`);
 
-    for (const step of steps) {
-      res.write(`event: step\ndata: ${JSON.stringify({ step })}\n\n`);
-      res.write(`event: progress\ndata: ${JSON.stringify({ step, processedFiles: 100, totalFiles: 100, completed: true })}\n\n`);
-    }
+      // — Send SSE headers
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+      res.flushHeaders();
 
-    // Generate fresh folder name
-    const requestId = new Date().toISOString().replace(/[:.]/g, '-');
-    const aliasFolder = `META_${requestId}`;
-    const aliasPath = path.join(__dirname, aliasFolder);
-    const aliasZipPath = path.join(aliasPath, `${aliasFolder}.zip`);
-    const originalZipPath = path.join(__dirname, entry.folder, `${entry.folder}.zip`);
+      // — Emit each step as already complete
+      const steps = [
+        'MRSAB',
+        'MRRANK',
+        'MRDEF',
+        'MRREL',
+        'MRSAT',
+        'MRCONSO',
+        'Compute Preferences',
+        'Compressing'
+      ];
+      for (const step of steps) {
+        res.write(`event: step\ndata: ${JSON.stringify({ step })}\n\n`);
+        res.write(`event: progress\ndata: ${JSON.stringify({
+          step,
+          processedFiles: 100,
+          totalFiles: 100,
+          completed: true
+        })}\n\n`);
+      }
 
-    try {
-      // Create new alias folder
+      // — Symlink into a fresh alias folder
+      const requestId = new Date().toISOString().replace(/[:.]/g, '-');
+      const aliasFolder = `META_${requestId}`;
+      const aliasPath = path.join(__dirname, aliasFolder);
+      const aliasTarGz = path.join(aliasPath, tarGzName);
+
       fs.mkdirSync(aliasPath, { recursive: true });
+      fs.symlinkSync(originalTarGz, aliasTarGz);
 
-      // Symlink the zip file into that folder using the expected name
-      fs.symlinkSync(originalZipPath, aliasZipPath);
-
+      // — Notify client and end
       res.write(`event: complete\ndata: ${JSON.stringify({
         folder: aliasFolder,
-        zipFile: aliasZipPath,
+        tarFile: aliasTarGz,
         requestId
       })}\n\n`);
-    } catch (err) {
-      console.error('❌ Failed to create alias folder or symlink:', err);
-      res.write(`event: error\ndata: ${JSON.stringify({ step: 'Zipping', error: err.message })}\n\n`);
+      res.end();
+      return;
     }
-
-    res.end();
-    return;
   }
 
-
+  // 2) Validate input
   if (selectedSourceAbbreviations.length === 0) {
-    res.status(400).json({ error: 'selectedSourceAbbreviations query parameter is required' });
-    return;
+    return res.status(400).json({ error: 'selectedSourceAbbreviations query parameter is required' });
   }
 
+  // — Send SSE headers for full recompute
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
   res.flushHeaders();
 
+  // 3) Prepare new folder
   const folderName = `META_${new Date().toISOString().replace(/[:.]/g, '-')}`;
   const folderPath = path.join(__dirname, folderName);
   fs.mkdirSync(folderPath, { recursive: true });
@@ -318,91 +332,95 @@ app.get('/api/subsetMetathesaurusProgress', async (req, res) => {
   const rankPath = path.join(folderPath, 'MRRANK.RRF');
   const inputPath = path.join(folderPath, 'MRCONSO.RRF');
   const tempOutputPath = path.join(folderPath, 'MRCONSO.processed.RRF');
-  const zipFilePath = path.join(folderPath, `${folderName}.zip`);
+  const tarGzPath = path.join(folderPath, `${folderName}.tar.gz`);
 
+  // 4) Determine reuse vs. extras
   const bestMatch = findBestSubsetReuse(selectedSourceAbbreviations);
   const reusedFolder = bestMatch?.folder;
-  const reusedSources = new Set(bestMatch?.sources || []);
-
-  const extraSources = selectedSourceAbbreviations.filter(s => !reusedSources.has(s));
+  const reusedSet = new Set(bestMatch?.sources || []);
+  const extraSources = selectedSourceAbbreviations.filter(sab => !reusedSet.has(sab));
 
   async function reuseFile(fileName) {
     if (!reusedFolder) return;
     const existing = path.join(__dirname, reusedFolder, fileName);
     const out = path.join(folderPath, fileName);
-    if (fs.existsSync(existing)) {
-      if (fs.existsSync(existing)) {
-        fs.copyFileSync(existing, out);
-      }
-
-    }
+    if (fs.existsSync(existing)) fs.copyFileSync(existing, out);
   }
 
   try {
-    // Reuse and extend
+    // 5) Reuse MR files if available
     await reuseFile('MRRANK.RRF');
     await reuseFile('MRCONSO.RRF');
 
-    const shouldDelayOthers = extraSources.length > 20;
-    const maybeDelay = (fn) =>
-      shouldDelayOthers
+    // 6) Kick off parallel SAB concats (with optional delay)
+    const shouldDelay = extraSources.length > 20;
+    const maybeDelay = fn =>
+      shouldDelay
         ? new Promise(resolve => setTimeout(() => fn().then(resolve), 5000))
         : fn();
 
-    // Start lower-priority tasks with optional delay
-    const relTask = maybeDelay(() => reuseFile('MRREL.RRF').then(() =>
-      concatSABFiles('MRREL.RRF', extraSources, path.join(folderPath, 'MRREL.RRF'), 'MRREL', res)
-    ));
-    const satTask = maybeDelay(() => reuseFile('MRSAT.RRF').then(() =>
-      concatSABFiles('MRSAT.RRF', extraSources, path.join(folderPath, 'MRSAT.RRF'), 'MRSAT', res)
-    ));
-    const defTask = maybeDelay(() => reuseFile('MRDEF.RRF').then(() =>
-      concatSABFiles('MRDEF.RRF', extraSources, path.join(folderPath, 'MRDEF.RRF'), 'MRDEF', res)
-    ));
-    const sabTask = maybeDelay(() => reuseFile('MRSAB.RRF').then(() =>
-      concatSABFiles('MRSAB.RRF', extraSources, path.join(folderPath, 'MRSAB.RRF'), 'MRSAB', res)
-    ));
+    const relTask = maybeDelay(() =>
+      reuseFile('MRREL.RRF').then(() =>
+        concatSABFiles('MRREL.RRF', extraSources, path.join(folderPath, 'MRREL.RRF'), 'MRREL', res)
+      )
+    );
+    const satTask = maybeDelay(() =>
+      reuseFile('MRSAT.RRF').then(() =>
+        concatSABFiles('MRSAT.RRF', extraSources, path.join(folderPath, 'MRSAT.RRF'), 'MRSAT', res)
+      )
+    );
+    const defTask = maybeDelay(() =>
+      reuseFile('MRDEF.RRF').then(() =>
+        concatSABFiles('MRDEF.RRF', extraSources, path.join(folderPath, 'MRDEF.RRF'), 'MRDEF', res)
+      )
+    );
+    const sabTask = maybeDelay(() =>
+      reuseFile('MRSAB.RRF').then(() =>
+        concatSABFiles('MRSAB.RRF', extraSources, path.join(folderPath, 'MRSAB.RRF'), 'MRSAB', res)
+      )
+    );
 
-    // Step 2: Rank + MRCONSO + Preferences (sequential)
+    // 7) Sequential: RANK → CONSO → Preferences
     await concatSABFiles('MRRANK.RRF', extraSources, rankPath, 'MRRANK', res);
 
-    console.log('🔁 Starting MRCONSO concat...');
+    console.log('🔁 Starting MRCONSO concat…');
     await concatSABFiles('MRCONSO.RRF', extraSources, inputPath, 'MRCONSO', res);
     console.log('✅ MRCONSO concat done.');
 
-    console.log('⚙️ Starting computePreferences...');
-
-    // Just run computePreferences — it now handles its own progress
+    console.log('⚙️ Starting computePreferences…');
     await computePreferences(inputPath, rankPath, tempOutputPath, res);
-
-
-    // Replace original file with processed one
     fs.renameSync(tempOutputPath, inputPath);
     console.log('✅ computePreferences complete.');
 
-
-
-    // Step 3: Wait for parallel tasks
+    // 8) Wait for SAB tasks
     await Promise.all([relTask, satTask, defTask, sabTask]);
 
-    const tarGzPath = path.join(folderPath, `${folderName}.tar.gz`);
+    // 9) Create final .tar.gz
     await createCompressedTarFile(folderPath, tarGzPath, res);
 
-
+    // 10) Update cache
     subsetCache[key] = {
       folder: folderName,
       sources: selectedSourceAbbreviations.sort()
     };
     saveSubsetCacheToDisk();
 
-    res.write(`event: complete\ndata: ${JSON.stringify({ folder: folderName, zipFile: tarGzPath })}\n\n`);
+    // 11) Finish
+    res.write(`event: complete\ndata: ${JSON.stringify({
+      folder: folderName,
+      tarFile: tarGzPath
+    })}\n\n`);
     res.end();
   } catch (err) {
-    console.error("❌ Subsetting error:", err);
-    res.write(`event: error\ndata: ${JSON.stringify({ step: 'Subsetting', error: err.message })}\n\n`);
+    console.error('❌ Subsetting error:', err);
+    res.write(`event: error\ndata: ${JSON.stringify({
+      step: 'Subsetting',
+      error: err.message
+    })}\n\n`);
     res.end();
   }
 });
+
 
 app.get('/:folder/:file', (req, res) => {
   const zipPath = path.join(__dirname, req.params.folder, req.params.file);

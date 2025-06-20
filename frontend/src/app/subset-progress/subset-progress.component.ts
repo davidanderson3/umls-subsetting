@@ -30,7 +30,7 @@ export class SubsetProgressComponent implements OnInit, OnDestroy {
     'MRSAT',
     'MRCONSO',
     'Compute Preferences',
-    'Zipping'
+    'Compressing'
   ];
 
   expectedLines: { [key: string]: number } = {};
@@ -176,7 +176,7 @@ export class SubsetProgressComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (step === 'Zipping' && processedFiles !== undefined && totalFiles !== undefined) {
+    if (step === 'Compressing' && processedFiles !== undefined && totalFiles !== undefined) {
       const percent = Math.min((processedFiles / totalFiles) * 100, 100);
       this.progress[step] = Math.round(percent);
     }
