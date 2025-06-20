@@ -134,7 +134,8 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-backend/META*
+backend/META/*
+backend/META_*
 backend/preprocessed*
 frontend/.angular*
 backend/subset-cache.json
