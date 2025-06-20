@@ -137,3 +137,4 @@ dist
 backend/META*
 backend/preprocessed*
 frontend/.angular*
+backend/subset-cache.json

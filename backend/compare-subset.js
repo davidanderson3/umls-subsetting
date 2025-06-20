@@ -1,78 +1,56 @@
 const fs = require('fs');
-const path = require('path');
 const readline = require('readline');
+const path = require('path');
 
-const metaDir = path.resolve(__dirname, 'META');
-const subsetDir = process.argv[2];
-const maxDiffLines = 10;
+const metaFile = process.argv[2];
+const subsetFile = process.argv[3];
 
-if (!subsetDir) {
-    console.error('❌ Usage: node compare-subset.js <subset-folder>');
+if (!metaFile || !subsetFile) {
+    console.error('Usage: node compareSortedFiles.js META_sorted/MRCONSO.RRF subset_sorted/MRCONSO.RRF');
     process.exit(1);
 }
 
-function getRRFfiles(dirPath) {
-    return fs.readdirSync(dirPath).filter(f => f.endsWith('.RRF'));
-}
-
-function readLinesSet(filePath) {
-    return new Promise((resolve) => {
-        const lines = new Set();
-        const rl = readline.createInterface({
-            input: fs.createReadStream(filePath),
-            crlfDelay: Infinity,
-        });
-        rl.on('line', line => lines.add(line));
-        rl.on('close', () => resolve(lines));
+async function compareSortedFiles(metaPath, subsetPath) {
+    const metaStream = readline.createInterface({
+        input: fs.createReadStream(metaPath),
+        crlfDelay: Infinity
     });
-}
 
-async function compareFileContent(fileName) {
-    const metaFile = path.join(metaDir, fileName);
-    const subsetFile = path.join(subsetDir, fileName);
+    const subsetStream = readline.createInterface({
+        input: fs.createReadStream(subsetPath),
+        crlfDelay: Infinity
+    });
 
-    if (!fs.existsSync(metaFile) || !fs.existsSync(subsetFile)) return;
+    const metaIter = metaStream[Symbol.asyncIterator]();
+    const subsetIter = subsetStream[Symbol.asyncIterator]();
 
-    const [metaLines, subsetLines] = await Promise.all([
-        readLinesSet(metaFile),
-        readLinesSet(subsetFile)
-    ]);
+    let metaLine = (await metaIter.next()).value;
+    let subsetLine = (await subsetIter.next()).value;
 
-    const onlyInMeta = [...metaLines].filter(line => !subsetLines.has(line));
-    const onlyInSubset = [...subsetLines].filter(line => !metaLines.has(line));
+    const onlyInMeta = [];
+    const onlyInSubset = [];
 
-    if (onlyInMeta.length === 0 && onlyInSubset.length === 0) {
-        console.log(`✅ ${fileName} contents match`);
-        return;
-    }
+    const writeStreamMeta = fs.createWriteStream(`${metaPath}_only-in-meta.txt`);
+    const writeStreamSubset = fs.createWriteStream(`${subsetPath}_only-in-subset.txt`);
 
-    console.log(`\n🔎 Differences in ${fileName}:`);
-
-    if (onlyInMeta.length) {
-        console.log(`📉 Lines in META but not in subset (${onlyInMeta.length}):`);
-        onlyInMeta.slice(0, maxDiffLines).forEach(l => console.log(`- ${l}`));
-        if (onlyInMeta.length > maxDiffLines) {
-            console.log(`...and ${onlyInMeta.length - maxDiffLines} more`);
+    while (metaLine !== undefined || subsetLine !== undefined) {
+        if (metaLine === subsetLine) {
+            metaLine = (await metaIter.next()).value;
+            subsetLine = (await subsetIter.next()).value;
+        } else if (subsetLine === undefined || (metaLine !== undefined && metaLine < subsetLine)) {
+            writeStreamMeta.write(metaLine + '\n');
+            metaLine = (await metaIter.next()).value;
+        } else {
+            writeStreamSubset.write(subsetLine + '\n');
+            subsetLine = (await subsetIter.next()).value;
         }
     }
 
-    if (onlyInSubset.length) {
-        console.log(`📈 Lines in subset but not in META (${onlyInSubset.length}):`);
-        onlyInSubset.slice(0, maxDiffLines).forEach(l => console.log(`+ ${l}`));
-        if (onlyInSubset.length > maxDiffLines) {
-            console.log(`...and ${onlyInSubset.length - maxDiffLines} more`);
-        }
-    }
+    writeStreamMeta.end();
+    writeStreamSubset.end();
+
+    writeStreamMeta.on('finish', () => console.log(`✅ Done: ${path.basename(metaPath)} → _only-in-meta.txt`));
+    writeStreamSubset.on('finish', () => console.log(`✅ Done: ${path.basename(subsetPath)} → _only-in-subset.txt`));
 }
 
-async function run() {
-    const metaFiles = getRRFfiles(metaDir);
-    const subsetFiles = getRRFfiles(subsetDir);
-    const commonFiles = metaFiles.filter(f => subsetFiles.includes(f));
-
-    for (const file of commonFiles) {
-        await compareFileContent(file);
-    }
-}
-
-run();
+compareSortedFiles(metaFile, subsetFile);

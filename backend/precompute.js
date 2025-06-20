@@ -43,7 +43,7 @@ async function splitBySAB(inputPath, outputBase) {
 
         if (!handles.has(sab)) {
             const outPath = path.join(outputDir, `${sab}.txt`);
-            handles.set(sab, fs.createWriteStream(outPath, { flags: 'a' }));
+            handles.set(sab, fs.createWriteStream(outPath, { flags: 'w' }));
         }
         handles.get(sab).write(line + '\n');
     }
