@@ -1,0 +1,25 @@
+<div class="progress-container">
+  <h2>Subsetting Progress</h2>
+  <p>Processing: {{ status }}</p>
+  <p *ngIf="subsetElapsedTimeMs">Total time: {{ getTotalElapsedTime() }}</p>
+
+
+  <div *ngFor="let step of steps" class="progress-step">
+    <span class="progress-label">{{ step }}</span>
+    <div class="progress-bar">
+      <div class="progress-fill" [style.width]="getStepProgress(step) + '%'"></div>
+    </div>
+    <span class="progress-meta">
+      {{ getStepProgress(step) }}%
+      <span *ngIf="getStepDuration(step)">({{ getStepDuration(step) }})</span>
+    </span>
+  </div>
+
+  <div *ngIf="downloadUrl" class="download-section">
+    <a [href]="downloadUrl" class="download-button">⬇️ Download Subset</a>
+  </div>
+  <div *ngIf="completedSubsetSources.length > 0" class="included-sources">
+    <p><strong>Subset includes:</strong> {{ completedSubsetSources.join(', ') }}</p>
+  </div>
+
+</div>

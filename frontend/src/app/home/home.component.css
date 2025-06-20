@@ -1,0 +1,40 @@
+.umls-home {
+    max-width: 600px;
+    margin: 2rem auto;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+.headline {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.intro,
+.alt-option {
+    font-size: 1.1rem;
+    margin: 1rem 0;
+}
+
+.action-group {
+    margin: 1rem 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #0066cc;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #ddd;
+    color: #333;
+}

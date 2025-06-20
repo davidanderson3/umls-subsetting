@@ -1,0 +1,1136 @@
+[
+  {
+    "abbreviation": "AIR",
+    "expandedForm": "AI/RHEUM, 1993",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "ALT",
+    "expandedForm": "Alternative Billing Concepts, 2009",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "AOD",
+    "expandedForm": "Alcohol and Other Drug Thesaurus, 2000",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "AOT",
+    "expandedForm": "Authorized Osteopathic Thesaurus, 2003",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "ATC",
+    "expandedForm": "Anatomical Therapeutic Chemical Classification System, 2024_01_19",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "BI",
+    "expandedForm": "Beth Israel Vocabulary, 1.0",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "CCC",
+    "expandedForm": "Clinical Care Classification, 2_5_2018",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "CCPSS",
+    "expandedForm": "Canonical Clinical Problem Statement System, 1999",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "CCS",
+    "expandedForm": "Clinical Classifications Software, 2005",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "CCSR_ICD10CM",
+    "expandedForm": "Clinical Classifications Software Refined for ICD-10-CM, 2024",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "CCSR_ICD10PCS",
+    "expandedForm": "Clinical Classifications Software Refined for ICD-10-PCS, 2024",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "CDCREC",
+    "expandedForm": "Race & Ethnicity - CDC, 1.2",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "CDT",
+    "expandedForm": "Code on Dental Procedures and Nomenclature, 2023",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "CHV",
+    "expandedForm": "Consumer Health Vocabulary, 2011_02",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "COSTAR",
+    "expandedForm": "COSTAR, 1989-1995",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "CPM",
+    "expandedForm": "Medical Entities Dictionary, 2003",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "CPT",
+    "expandedForm": "Current Procedural Terminology, 2024",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "CPTSP",
+    "expandedForm": "Physicians' Current Procedural Terminology, Spanish Translation, 2001",
+    "active": false,
+    "languageAbbreviation": "SPA"
+  },
+  {
+    "abbreviation": "CSP",
+    "expandedForm": "CRISP Thesaurus, 2006",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "CST",
+    "expandedForm": "COSTART, 1995",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "CVX",
+    "expandedForm": "Vaccines Administered, 2024_02_15",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "DDB",
+    "expandedForm": "Diseases Database, 2000",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "DMDICD10",
+    "expandedForm": "German translation of ICD10, 1995",
+    "active": false,
+    "languageAbbreviation": "GER"
+  },
+  {
+    "abbreviation": "DMDUMD",
+    "expandedForm": "German translation of UMDNS, 1996",
+    "active": false,
+    "languageAbbreviation": "GER"
+  },
+  {
+    "abbreviation": "DRUGBANK",
+    "expandedForm": "DrugBank, 5.0_2024_02_09",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "DSM-5",
+    "expandedForm": "Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition (DSM-5), 2015",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "DXP",
+    "expandedForm": "DXplain, 1994",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "FMA",
+    "expandedForm": "Foundational Model of Anatomy Ontology, 4_15",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "GO",
+    "expandedForm": "Gene Ontology, 2023_05_10",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "GS",
+    "expandedForm": "Gold Standard Drug Database, 2024_02_12",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "HCDT",
+    "expandedForm": "HCPCS Version of Current Dental Terminology (CDT), 2023",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "HCPCS",
+    "expandedForm": "Healthcare Common Procedure Coding System, 2024",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "HCPT",
+    "expandedForm": "HCPCS Version of Current Procedural Terminology (CPT), 2024",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "HGNC",
+    "expandedForm": "HUGO Gene Nomenclature Committee, 2023_04",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "HL7V2.5",
+    "expandedForm": "HL7 Vocabulary Version 2.5, 2003_08_30",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "HL7V3.0",
+    "expandedForm": "HL7 Vocabulary Version 3.0, 2023_11",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "HLREL",
+    "expandedForm": "ICPC2E-ICD10 relationships from Dr. Henk Lamberts, 1998",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "HPO",
+    "expandedForm": "Human Phenotype Ontology, 2023_10_09",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "ICD10",
+    "expandedForm": "ICD10, 1998",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "ICD10AE",
+    "expandedForm": "ICD10, American English Equivalents, 1998",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "ICD10AM",
+    "expandedForm": "International Statistical Classification of Diseases and Related Health Problems, 10th Revision, Australian Modification, January 2000 Release",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "ICD10AMAE",
+    "expandedForm": "International Statistical Classification of Diseases and Related Health Problems, Australian Modification, Americanized English Equivalents, 2000",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "ICD10CM",
+    "expandedForm": "International Classification of Diseases, 10th Edition, Clinical Modification, 2024",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "ICD10DUT",
+    "expandedForm": "ICD10, Dutch Translation, 200403",
+    "active": false,
+    "languageAbbreviation": "DUT"
+  },
+  {
+    "abbreviation": "ICD10PCS",
+    "expandedForm": "ICD-10-PCS, 2024",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "ICD9CM",
+    "expandedForm": "International Classification of Diseases, Ninth Revision, Clinical Modification, 2014",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "ICF",
+    "expandedForm": "International Classification of Functioning, Disability and Health, 2008_12_19",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "ICF-CY",
+    "expandedForm": "International Classification of Functioning, Disability and Health for Children and Youth, 2008",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "ICNP",
+    "expandedForm": "International Classification for Nursing Practice, 2022",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "ICPC",
+    "expandedForm": "International Classification of Primary Care, 1993",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "ICPC2EDUT",
+    "expandedForm": "International Classification of Primary Care 2nd Edition, Electronic, 2E, Dutch Translation, 200203",
+    "active": false,
+    "languageAbbreviation": "DUT"
+  },
+  {
+    "abbreviation": "ICPC2EENG",
+    "expandedForm": "International Classification of Primary Care 2nd Edition, Electronic, 2E, 200203",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "ICPC2ICD10DUT",
+    "expandedForm": "ICPC2-ICD10 Thesaurus, Dutch Translation, 200412",
+    "active": false,
+    "languageAbbreviation": "DUT"
+  },
+  {
+    "abbreviation": "ICPC2ICD10ENG",
+    "expandedForm": "ICPC2 - ICD10 Thesaurus, 200412",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "ICPC2P",
+    "expandedForm": "ICPC-2 PLUS",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "ICPCBAQ",
+    "expandedForm": "ICPC, Basque Translation, 1993",
+    "active": false,
+    "languageAbbreviation": "BAQ"
+  },
+  {
+    "abbreviation": "ICPCDAN",
+    "expandedForm": "ICPC, Danish Translation, 1993",
+    "active": false,
+    "languageAbbreviation": "DAN"
+  },
+  {
+    "abbreviation": "ICPCDUT",
+    "expandedForm": "ICPC, Dutch Translation, 1993",
+    "active": false,
+    "languageAbbreviation": "DUT"
+  },
+  {
+    "abbreviation": "ICPCFIN",
+    "expandedForm": "ICPC, Finnish Translation, 1993",
+    "active": false,
+    "languageAbbreviation": "FIN"
+  },
+  {
+    "abbreviation": "ICPCFRE",
+    "expandedForm": "ICPC, French Translation, 1993",
+    "active": false,
+    "languageAbbreviation": "FRE"
+  },
+  {
+    "abbreviation": "ICPCGER",
+    "expandedForm": "ICPC, German Translation, 1993",
+    "active": false,
+    "languageAbbreviation": "GER"
+  },
+  {
+    "abbreviation": "ICPCHEB",
+    "expandedForm": "ICPC, Hebrew Translation, 1993",
+    "active": false,
+    "languageAbbreviation": "HEB"
+  },
+  {
+    "abbreviation": "ICPCHUN",
+    "expandedForm": "ICPC, Hungarian Translation, 1993",
+    "active": false,
+    "languageAbbreviation": "HUN"
+  },
+  {
+    "abbreviation": "ICPCITA",
+    "expandedForm": "ICPC, Italian Translation, 1993",
+    "active": false,
+    "languageAbbreviation": "ITA"
+  },
+  {
+    "abbreviation": "ICPCNOR",
+    "expandedForm": "ICPC, Norwegian Translation, 1993",
+    "active": false,
+    "languageAbbreviation": "NOR"
+  },
+  {
+    "abbreviation": "ICPCPOR",
+    "expandedForm": "ICPC, Portuguese Translation, 1993",
+    "active": false,
+    "languageAbbreviation": "POR"
+  },
+  {
+    "abbreviation": "ICPCSPA",
+    "expandedForm": "ICPC, Spanish Translation, 1993",
+    "active": false,
+    "languageAbbreviation": "SPA"
+  },
+  {
+    "abbreviation": "ICPCSWE",
+    "expandedForm": "ICPC, Swedish Translation, 1993",
+    "active": false,
+    "languageAbbreviation": "SWE"
+  },
+  {
+    "abbreviation": "JABL",
+    "expandedForm": "Online Congenital Multiple Anomaly/Mental Retardation Syndromes, 1999",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "KCD5",
+    "expandedForm": "Korean Standard Classification of Disease Version 5, 2008",
+    "active": false,
+    "languageAbbreviation": "KOR"
+  },
+  {
+    "abbreviation": "LCH",
+    "expandedForm": "Library of Congress Subject Headings, 1990",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "LCH_NW",
+    "expandedForm": "Library of Congress Subject Headings, Northwestern University subset, 2013",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "LNC",
+    "expandedForm": "LOINC, 277",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "LNC-DE-AT",
+    "expandedForm": "LOINC, German, Austria Edition, 277",
+    "active": true,
+    "languageAbbreviation": "GER"
+  },
+  {
+    "abbreviation": "LNC-DE-DE",
+    "expandedForm": "LOINC, German, Germany Edition, 277",
+    "active": true,
+    "languageAbbreviation": "GER"
+  },
+  {
+    "abbreviation": "LNC-EL-GR",
+    "expandedForm": "LOINC, Greek, Greece Edition, 277",
+    "active": true,
+    "languageAbbreviation": "GRE"
+  },
+  {
+    "abbreviation": "LNC-ES-AR",
+    "expandedForm": "LOINC, Spanish, Argentina Edition, 277",
+    "active": true,
+    "languageAbbreviation": "SPA"
+  },
+  {
+    "abbreviation": "LNC-ES-ES",
+    "expandedForm": "LOINC, Spanish, Spain Edition, 277",
+    "active": true,
+    "languageAbbreviation": "SPA"
+  },
+  {
+    "abbreviation": "LNC-ES-MX",
+    "expandedForm": "LOINC, Spanish, Mexico Edition, 277",
+    "active": true,
+    "languageAbbreviation": "SPA"
+  },
+  {
+    "abbreviation": "LNC-ET-EE",
+    "expandedForm": "LOINC, Estonian, Estonia Edition, 277",
+    "active": true,
+    "languageAbbreviation": "EST"
+  },
+  {
+    "abbreviation": "LNC-FR-BE",
+    "expandedForm": "LOINC, French, Belgium Edition, 277",
+    "active": true,
+    "languageAbbreviation": "FRE"
+  },
+  {
+    "abbreviation": "LNC-FR-CA",
+    "expandedForm": "LOINC, French, Canada Edition, 277",
+    "active": true,
+    "languageAbbreviation": "FRE"
+  },
+  {
+    "abbreviation": "LNC-FR-FR",
+    "expandedForm": "LOINC, French, France Edition, 277",
+    "active": true,
+    "languageAbbreviation": "FRE"
+  },
+  {
+    "abbreviation": "LNC-IT-IT",
+    "expandedForm": "LOINC, Italian, Italy Edition, 277",
+    "active": true,
+    "languageAbbreviation": "ITA"
+  },
+  {
+    "abbreviation": "LNC-KO-KR",
+    "expandedForm": "LOINC, Korean, Korea Edition, 277",
+    "active": true,
+    "languageAbbreviation": "KOR"
+  },
+  {
+    "abbreviation": "LNC-NL-NL",
+    "expandedForm": "LOINC, Dutch, Netherlands Edition, 277",
+    "active": true,
+    "languageAbbreviation": "DUT"
+  },
+  {
+    "abbreviation": "LNC-PL-PL",
+    "expandedForm": "LOINC, Polish, Poland Edition, 277",
+    "active": true,
+    "languageAbbreviation": "POL"
+  },
+  {
+    "abbreviation": "LNC-PT-BR",
+    "expandedForm": "LOINC, Portuguese, Brazil Edition, 277",
+    "active": true,
+    "languageAbbreviation": "POR"
+  },
+  {
+    "abbreviation": "LNC-RU-RU",
+    "expandedForm": "LOINC, Russian, Russia Edition, 277",
+    "active": true,
+    "languageAbbreviation": "RUS"
+  },
+  {
+    "abbreviation": "LNC-TR-TR",
+    "expandedForm": "LOINC, Turkish, Turkey Edition, 277",
+    "active": true,
+    "languageAbbreviation": "TUR"
+  },
+  {
+    "abbreviation": "LNC-UK-UA",
+    "expandedForm": "LOINC, Ukrainian, Ukraine Edition, 277",
+    "active": true,
+    "languageAbbreviation": "UKR"
+  },
+  {
+    "abbreviation": "LNC-ZH-CN",
+    "expandedForm": "LOINC, Chinese, China Edition, 277",
+    "active": true,
+    "languageAbbreviation": "CHI"
+  },
+  {
+    "abbreviation": "MCM",
+    "expandedForm": "McMaster University Epidemiology Terms, 1992",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "MDR",
+    "expandedForm": "Medical Dictionary for Regulatory Activities Terminology (MedDRA), 26.1",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "MDRARA",
+    "expandedForm": "Medical Dictionary for Regulatory Activities Terminology (MedDRA), Arabic Edition, 26.1",
+    "active": true,
+    "languageAbbreviation": "ARA"
+  },
+  {
+    "abbreviation": "MDRBPO",
+    "expandedForm": "Medical Dictionary for Regulatory Activities Terminology (MedDRA), Brazilian Portuguese Edition, 26.1",
+    "active": true,
+    "languageAbbreviation": "POR"
+  },
+  {
+    "abbreviation": "MDRCZE",
+    "expandedForm": "Medical Dictionary for Regulatory Activities Terminology (MedDRA), Czech Edition, 26.1",
+    "active": true,
+    "languageAbbreviation": "CZE"
+  },
+  {
+    "abbreviation": "MDRDUT",
+    "expandedForm": "Medical Dictionary for Regulatory Activities Terminology (MedDRA), Dutch Edition, 26.1",
+    "active": true,
+    "languageAbbreviation": "DUT"
+  },
+  {
+    "abbreviation": "MDREST",
+    "expandedForm": "Medical Dictionary for Regulatory Activities Terminology (MedDRA), Estonian Edition, 26.1",
+    "active": true,
+    "languageAbbreviation": "EST"
+  },
+  {
+    "abbreviation": "MDRFIN",
+    "expandedForm": "Medical Dictionary for Regulatory Activities Terminology (MedDRA), Finnish Edition, 26.1",
+    "active": true,
+    "languageAbbreviation": "FIN"
+  },
+  {
+    "abbreviation": "MDRFRE",
+    "expandedForm": "Medical Dictionary for Regulatory Activities Terminology (MedDRA), French Edition, 26.1",
+    "active": true,
+    "languageAbbreviation": "FRE"
+  },
+  {
+    "abbreviation": "MDRGER",
+    "expandedForm": "Medical Dictionary for Regulatory Activities Terminology (MedDRA), German Edition, 26.1",
+    "active": true,
+    "languageAbbreviation": "GER"
+  },
+  {
+    "abbreviation": "MDRGRE",
+    "expandedForm": "Medical Dictionary for Regulatory Activities Terminology (MedDRA), Greek Edition, 26.1",
+    "active": true,
+    "languageAbbreviation": "GRE"
+  },
+  {
+    "abbreviation": "MDRHUN",
+    "expandedForm": "Medical Dictionary for Regulatory Activities Terminology (MedDRA), Hungarian Edition, 26.1",
+    "active": true,
+    "languageAbbreviation": "HUN"
+  },
+  {
+    "abbreviation": "MDRITA",
+    "expandedForm": "Medical Dictionary for Regulatory Activities Terminology (MedDRA), Italian Edition, 26.1",
+    "active": true,
+    "languageAbbreviation": "ITA"
+  },
+  {
+    "abbreviation": "MDRJPN",
+    "expandedForm": "Medical Dictionary for Regulatory Activities Terminology (MedDRA), Japanese Edition, 26.1",
+    "active": true,
+    "languageAbbreviation": "JPN"
+  },
+  {
+    "abbreviation": "MDRKOR",
+    "expandedForm": "Medical Dictionary for Regulatory Activities Terminology (MedDRA), Korean Edition, 26.1",
+    "active": true,
+    "languageAbbreviation": "KOR"
+  },
+  {
+    "abbreviation": "MDRLAV",
+    "expandedForm": "Medical Dictionary for Regulatory Activities Terminology (MedDRA), Latvian Edition, 26.1",
+    "active": true,
+    "languageAbbreviation": "LAV"
+  },
+  {
+    "abbreviation": "MDRPOL",
+    "expandedForm": "Medical Dictionary for Regulatory Activities Terminology (MedDRA), Polish Edition, 26.1",
+    "active": true,
+    "languageAbbreviation": "POL"
+  },
+  {
+    "abbreviation": "MDRPOR",
+    "expandedForm": "Medical Dictionary for Regulatory Activities Terminology (MedDRA), Portuguese Edition, 26.1",
+    "active": true,
+    "languageAbbreviation": "POR"
+  },
+  {
+    "abbreviation": "MDRRUS",
+    "expandedForm": "Medical Dictionary for Regulatory Activities Terminology (MedDRA), Russian Edition, 26.1",
+    "active": true,
+    "languageAbbreviation": "RUS"
+  },
+  {
+    "abbreviation": "MDRSPA",
+    "expandedForm": "Medical Dictionary for Regulatory Activities Terminology (MedDRA), Spanish Edition, 26.1",
+    "active": true,
+    "languageAbbreviation": "SPA"
+  },
+  {
+    "abbreviation": "MDRSWE",
+    "expandedForm": "Medical Dictionary for Regulatory Activities Terminology (MedDRA), Swedish Edition, 26.1",
+    "active": true,
+    "languageAbbreviation": "SWE"
+  },
+  {
+    "abbreviation": "MED-RT",
+    "expandedForm": "Medication Reference Terminology, 2024_03_04",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "MEDCIN",
+    "expandedForm": "MEDCIN, 3_2023_12_19",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "MEDLINEPLUS",
+    "expandedForm": "MedlinePlus Health Topics, 20231101",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "MEDLINEPLUS_SPA",
+    "expandedForm": "MedlinePlus Spanish Health Topics, 20231101",
+    "active": true,
+    "languageAbbreviation": "SPA"
+  },
+  {
+    "abbreviation": "MMSL",
+    "expandedForm": "Multum MediSource Lexicon, 2024_02_01",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "MMX",
+    "expandedForm": "Micromedex RED BOOK, 2024_02_05",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "MSH",
+    "expandedForm": "Medical Subject Headings, 2024_2024_02_01",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "MSHCZE",
+    "expandedForm": "Czech translation of the Medical Subject Headings, 2024",
+    "active": true,
+    "languageAbbreviation": "CZE"
+  },
+  {
+    "abbreviation": "MSHDUT",
+    "expandedForm": "Nederlandse vertaling van Mesh (Dutch translation of the Medical Subject Headings), 2005",
+    "active": false,
+    "languageAbbreviation": "DUT"
+  },
+  {
+    "abbreviation": "MSHFIN",
+    "expandedForm": "Finnish translation of the Medical Subject Headings, 2008",
+    "active": false,
+    "languageAbbreviation": "FIN"
+  },
+  {
+    "abbreviation": "MSHFRE",
+    "expandedForm": "Thesaurus Biomedical Francais/Anglais (French translation of the Medical Subject Headings), 2024",
+    "active": true,
+    "languageAbbreviation": "FRE"
+  },
+  {
+    "abbreviation": "MSHGER",
+    "expandedForm": "German translation of the Medical Subject Headings, 2023",
+    "active": true,
+    "languageAbbreviation": "GER"
+  },
+  {
+    "abbreviation": "MSHITA",
+    "expandedForm": "Italian translation of the Medical Subject Headings, 2019",
+    "active": false,
+    "languageAbbreviation": "ITA"
+  },
+  {
+    "abbreviation": "MSHJPN",
+    "expandedForm": "Japanese translation of the Medical Subject Headings, 2014",
+    "active": false,
+    "languageAbbreviation": "JPN"
+  },
+  {
+    "abbreviation": "MSHLAV",
+    "expandedForm": "Latvian translation of the Medical Subject Headings, 2012",
+    "active": false,
+    "languageAbbreviation": "LAV"
+  },
+  {
+    "abbreviation": "MSHNOR",
+    "expandedForm": "Medical Subject Headings Norwegian, 2019",
+    "active": false,
+    "languageAbbreviation": "NOR"
+  },
+  {
+    "abbreviation": "MSHPOL",
+    "expandedForm": "Polish translation of the Medical Subject Headings, 2024",
+    "active": true,
+    "languageAbbreviation": "POL"
+  },
+  {
+    "abbreviation": "MSHPOR",
+    "expandedForm": "Descritores em Ciencias da Saude (Portuguese translation of the Medical Subject Headings), 2024",
+    "active": true,
+    "languageAbbreviation": "POR"
+  },
+  {
+    "abbreviation": "MSHRUS",
+    "expandedForm": "Russian translation of the Medical Subject Headings, 2024",
+    "active": true,
+    "languageAbbreviation": "RUS"
+  },
+  {
+    "abbreviation": "MSHSCR",
+    "expandedForm": "Croatian translation of the Medical Subject Headings, 2019",
+    "active": false,
+    "languageAbbreviation": "SCR"
+  },
+  {
+    "abbreviation": "MSHSPA",
+    "expandedForm": "Descritores en Ciencias de la Salud (Spanish translation of the Medical Subject Headings), 2024",
+    "active": true,
+    "languageAbbreviation": "SPA"
+  },
+  {
+    "abbreviation": "MSHSWE",
+    "expandedForm": "Swedish translation of the Medical Subject Headings, 2021",
+    "active": true,
+    "languageAbbreviation": "SWE"
+  },
+  {
+    "abbreviation": "MTH",
+    "expandedForm": "UMLS Metathesaurus",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "MTHCMSFRF",
+    "expandedForm": "Metathesaurus CMS Formulary Reference File, 2020",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "MTHICD9",
+    "expandedForm": "International Classification of Diseases, Ninth Revision, Clinical Modification, Metathesaurus additional entry terms, 2014",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "MTHICPC2EAE",
+    "expandedForm": "International Classification of Primary Care 2nd Edition, Electronic, 2E, American English Equivalents, 200203",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "MTHICPC2ICD10AE",
+    "expandedForm": "ICPC2 - ICD10 Thesaurus, American English Equivalents, 0412",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "MTHMST",
+    "expandedForm": "Metathesaurus Version of Minimal Standard Terminology Digestive Endoscopy, 2001",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "MTHMSTFRE",
+    "expandedForm": "Metathesaurus Version of Minimal Standard Terminology Digestive Endoscopy, French Translation, 2001",
+    "active": false,
+    "languageAbbreviation": "FRE"
+  },
+  {
+    "abbreviation": "MTHMSTITA",
+    "expandedForm": "Metathesaurus Version of Minimal Standard Terminology Digestive Endoscopy, Italian Translation, 2001",
+    "active": false,
+    "languageAbbreviation": "ITA"
+  },
+  {
+    "abbreviation": "MTHSPL",
+    "expandedForm": "Metathesaurus FDA Structured Product Labels, 2024_02_24",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "MVX",
+    "expandedForm": "Manufacturers of Vaccines, 2024_02_12",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "NANDA-I",
+    "expandedForm": "NANDA-I Taxonomy II, 2018-2020",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "NCBI",
+    "expandedForm": "NCBI Taxonomy, 2023_11_01",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "NCI",
+    "expandedForm": "NCI Thesaurus, 2023_09D",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "NCISEER",
+    "expandedForm": "NCI SEER ICD Neoplasm Code Mappings, 1999",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "NDDF",
+    "expandedForm": "FDB MedKnowledge (formerly NDDF Plus), 2024_02_14",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "NEU",
+    "expandedForm": "Neuronames Brain Hierarchy, 2023_06_02",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "NIC",
+    "expandedForm": "Nursing Interventions Classification (NIC), 7",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "NOC",
+    "expandedForm": "Nursing Outcomes Classification (NOC), 6",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "NUCCHCPT",
+    "expandedForm": "National Uniform Claim Committee - Health Care Provider Taxonomy, 23.1",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "OMIM",
+    "expandedForm": "Online Mendelian Inheritance in Man, 2024_02_12",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "OMS",
+    "expandedForm": "Omaha System, 2005",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "ORPHANET",
+    "expandedForm": "Orphanet Nomenclature, 2023_07",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "PCDS",
+    "expandedForm": "Patient Care Data Set, 1997",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "PDQ",
+    "expandedForm": "Physician Data Query, 2018_10_27",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "PNDS",
+    "expandedForm": "Perioperative Nursing Data Set, 2024",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "PPAC",
+    "expandedForm": "Pharmacy Practice Activity Classification, 1998",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "PSY",
+    "expandedForm": "Thesaurus of Psychological Index Terms, 2004",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "QMR",
+    "expandedForm": "Quick Medical Reference (QMR), 1996",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "RAM",
+    "expandedForm": "QMR clinically related terms from Randolph A. Miller, 1999",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "RCD",
+    "expandedForm": "Clinical Terms Version 3 (CTV3) (Read Codes), 1999",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "RCDAE",
+    "expandedForm": "Read thesaurus, American English Equivalents, 1999",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "RCDSA",
+    "expandedForm": "Read thesaurus Americanized Synthesized Terms, 1999",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "RCDSY",
+    "expandedForm": "Read thesaurus, Synthesized Terms, 1999",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "RXNORM",
+    "expandedForm": "RxNorm Vocabulary, 20AA_240304F",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "SCTSPA",
+    "expandedForm": "SNOMED Clinical Terms, Spanish Language Edition, 2023_09_30",
+    "active": false,
+    "languageAbbreviation": "SPA"
+  },
+  {
+    "abbreviation": "SNM",
+    "expandedForm": "SNOMED-2, 2",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "SNMI",
+    "expandedForm": "SNOMED International, 1998",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "SNOMEDCT_US",
+    "expandedForm": "US Edition of SNOMED CT, 2024_03_01",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "SNOMEDCT_VET",
+    "expandedForm": "Veterinary Extension to SNOMED CT, 2023_10_01",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "SOP",
+    "expandedForm": "Source of Payment Typology, 9.2",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "SPN",
+    "expandedForm": "Standard Product Nomenclature, 2003",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "SRC",
+    "expandedForm": "Metathesaurus Source Terminology Names",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "TKMT",
+    "expandedForm": "Traditional Korean Medical Terms, 2011",
+    "active": false,
+    "languageAbbreviation": "KOR"
+  },
+  {
+    "abbreviation": "ULT",
+    "expandedForm": "UltraSTAR, 1993",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "UMD",
+    "expandedForm": "UMDNS: product category thesaurus, 2023",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "USP",
+    "expandedForm": "USP Compendial Nomenclature, 2024_01_08",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "USPMG",
+    "expandedForm": "USP Medicare Model Guidelines, 2023",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "UWDA",
+    "expandedForm": "University of Washington Digital Anatomist, 1.7.3",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "VANDF",
+    "expandedForm": "Veterans Health Administration National Drug File, 2024_01_31",
+    "active": true,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "WHO",
+    "expandedForm": "WHO Adverse Reaction Terminology, 1997",
+    "active": false,
+    "languageAbbreviation": "ENG"
+  },
+  {
+    "abbreviation": "WHOFRE",
+    "expandedForm": "WHOART, French Translation, 1997",
+    "active": false,
+    "languageAbbreviation": "FRE"
+  },
+  {
+    "abbreviation": "WHOGER",
+    "expandedForm": "WHOART, German Translation, 1997",
+    "active": false,
+    "languageAbbreviation": "GER"
+  },
+  {
+    "abbreviation": "WHOPOR",
+    "expandedForm": "WHOART, Portuguese Translation, 1997",
+    "active": false,
+    "languageAbbreviation": "POR"
+  },
+  {
+    "abbreviation": "WHOSPA",
+    "expandedForm": "WHOART, Spanish Translation, 1997",
+    "active": false,
+    "languageAbbreviation": "SPA"
+  }
+]

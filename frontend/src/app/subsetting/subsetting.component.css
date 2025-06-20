@@ -1,0 +1,45 @@
+/* Style for checkbox containers */
+div label {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  /* Adds vertical margin */
+  padding: 5px 10px;
+  /* Adds padding with horizontal space */
+}
+
+/* Center the container and set a fixed width */
+.container {
+  max-width: 800px;
+  /* Set the width of the box */
+  margin: 0 auto;
+  /* Center the container horizontally */
+  padding: 20px;
+  /* Add padding inside the container */
+  background-color: #f9f9f9;
+  /* Optional: Add a background color */
+  border-radius: 8px;
+  /* Optional: Add rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Optional: Add a subtle shadow */
+}
+
+.filter-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.filter-controls label {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.95rem;
+}
+
+.clear-selections {
+  margin-left: auto;
+}
