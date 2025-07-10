@@ -427,6 +427,14 @@ app.get('/api/subsetMetathesaurusProgress', async (req, res) => {
         fs.renameSync(tempOutputPath, inputPath);
         console.log('✅ computePreferences complete.');
 
+        // Send MRCONSO line count for downstream progress calculations
+        try {
+            const mrconsoLines = await countLinesInFile(inputPath);
+            res.write(`event: progress\ndata: ${JSON.stringify({ step: 'MRCONSO', totalLines: mrconsoLines })}\n\n`);
+        } catch (countErr) {
+            console.error('❌ Failed to count MRCONSO lines:', countErr);
+        }
+
         console.log('📄 Starting MRSTY subset…');
         await subsetMRSTY(path.join(__dirname, 'META', 'MRSTY.RRF'), inputPath, path.join(folderPath, 'MRSTY.RRF'), res);
         console.log('✅ MRSTY subset complete.');
