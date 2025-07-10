@@ -7,6 +7,29 @@ const path = require('path');
 const readline = require('readline');
 const archiver = require('archiver');
 
+// Utility to copy MRDOC in streaming manner with simple progress updates
+function copyMRDOC(inputPath, outputPath, res) {
+  return new Promise((resolve) => {
+    if (!fs.existsSync(inputPath)) return resolve();
+
+    res.write(`event: step\ndata: ${JSON.stringify({ step: 'MRDOC' })}\n\n`);
+
+    const readStream = fs.createReadStream(inputPath);
+    const writeStream = fs.createWriteStream(outputPath);
+
+    const finish = () => {
+      res.write(
+        `event: progress\ndata: ${JSON.stringify({ step: 'MRDOC', processedFiles: 100, totalFiles: 100, completed: true })}\n\n`
+      );
+      resolve();
+    };
+
+    readStream.on('error', finish);
+    writeStream.on('finish', finish);
+    readStream.pipe(writeStream);
+  });
+}
+
 const app = express();
 const port = 3001;
 
@@ -280,6 +303,7 @@ app.get('/api/subsetMetathesaurusProgress', async (req, res) => {
         'MRREL',
         'MRSAT',
         'MRCONSO',
+        'MRDOC',
         'Compute Preferences',
         'Compressing'
       ];
@@ -351,6 +375,7 @@ app.get('/api/subsetMetathesaurusProgress', async (req, res) => {
     // 5) Reuse MR files if available
     await reuseFile('MRRANK.RRF');
     await reuseFile('MRCONSO.RRF');
+    await reuseFile('MRDOC.RRF');
 
     // 6) Kick off parallel SAB concats (with optional delay)
     const shouldDelay = extraSources.length > 20;
@@ -395,17 +420,22 @@ app.get('/api/subsetMetathesaurusProgress', async (req, res) => {
     // 8) Wait for SAB tasks
     await Promise.all([relTask, satTask, defTask, sabTask]);
 
-    // 9) Create final .tar.gz
+    // 9) Copy MRDOC
+    const mrdocSource = path.join(__dirname, 'META', 'MRDOC.RRF');
+    const mrdocDest = path.join(folderPath, 'MRDOC.RRF');
+    if (!fs.existsSync(mrdocDest)) await copyMRDOC(mrdocSource, mrdocDest, res);
+
+    // 10) Create final .tar.gz
     await createCompressedTarFile(folderPath, tarGzPath, res);
 
-    // 10) Update cache
+    // 11) Update cache
     subsetCache[key] = {
       folder: folderName,
       sources: selectedSourceAbbreviations.sort()
     };
     saveSubsetCacheToDisk();
 
-    // 11) Finish
+    // 12) Finish
     res.write(`event: complete\ndata: ${JSON.stringify({
       folder: folderName,
       tarFile: tarGzPath

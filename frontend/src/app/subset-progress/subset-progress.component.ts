@@ -29,11 +29,12 @@ export class SubsetProgressComponent implements OnInit, OnDestroy {
     'MRREL',
     'MRSAT',
     'MRCONSO',
+    'MRDOC',
     'Compute Preferences',
     'Compressing'
   ];
 
-  private quickSteps = new Set(['MRREL', 'MRSAT', 'MRDEF', 'MRSAB', 'MRRANK']);
+  private quickSteps = new Set(['MRREL', 'MRSAT', 'MRDEF', 'MRSAB', 'MRRANK', 'MRDOC']);
 
   constructor(
     private route: ActivatedRoute,
