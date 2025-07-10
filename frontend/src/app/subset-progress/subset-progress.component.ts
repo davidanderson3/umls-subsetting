@@ -130,10 +130,7 @@ export class SubsetProgressComponent implements OnInit, OnDestroy {
           Math.round(Math.min((lines / this.mrconsoLineCount) * 100, 100));
       });
       this.pendingComputePreferencesLines = [];
-      return;
-    }
-
-    if (step === 'Compute Preferences' && totalLines != null) {
+    } else if (step === 'Compute Preferences' && totalLines != null) {
       if (this.mrconsoLineCount > 0) {
         this.progress[step] = Math.round(
           Math.min((totalLines / this.mrconsoLineCount) * 100, 100)
@@ -141,19 +138,13 @@ export class SubsetProgressComponent implements OnInit, OnDestroy {
       } else {
         this.pendingComputePreferencesLines.push(totalLines);
       }
-      return;
-    }
-
-    if (step === 'MRSTY' && totalLines != null) {
+    } else if (step === 'MRSTY' && totalLines != null) {
       if (this.mrconsoLineCount > 0) {
         this.progress[step] = Math.round(
           Math.min((totalLines / this.mrconsoLineCount) * 100, 100)
         );
       }
-      return;
-    }
-
-    if (processedFiles != null && totalFiles != null) {
+    } else if (processedFiles != null && totalFiles != null) {
       this.progress[step] = Math.round(
         Math.min((processedFiles / totalFiles) * 100, 100)
       );
