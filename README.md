@@ -21,9 +21,9 @@ Creates a subset of the UMLS filtered by source vocabulary.
        cd ../frontend  
        npm install  
 
-4. Add Metathesaurus files  
-   Copy your UMLS Metathesaurus RRF files (MRCONSO.RRF, MRREL.RRF, etc.) into:  
-       backend/META/ 
+4. Add Metathesaurus files
+   Copy your UMLS Metathesaurus RRF files (MRCONSO.RRF, MRREL.RRF, MRSTY.RRF, etc.) into:
+       backend/META/
 
 5. Run precompute  
        cd backend  
