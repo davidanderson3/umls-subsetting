@@ -189,6 +189,35 @@ function computePreferences(mrconsoPath, rankPath, outputPath, res) {
     });
   });
 }
+function subsetMRSTY(sourcePath, mrconsoPath, outputPath, res) {
+  return new Promise((resolve, reject) => {
+    res.write(`event: step\ndata: ${JSON.stringify({ step: 'MRSTY' })}\n\n`);
+
+    const cuis = new Set();
+    readline
+      .createInterface({ input: fs.createReadStream(mrconsoPath, 'utf-8'), crlfDelay: Infinity })
+      .on('line', line => {
+        const f = line.split('|');
+        if (f.length > 0) cuis.add(f[0]);
+      })
+      .on('close', () => {
+        const rl = readline.createInterface({ input: fs.createReadStream(sourcePath, 'utf-8'), crlfDelay: Infinity });
+        const ws = fs.createWriteStream(outputPath, 'utf-8');
+        rl.on('line', line => {
+          const cui = line.split('|')[0];
+          if (cuis.has(cui)) ws.write(line + '\n');
+        });
+        rl.on('close', () => {
+          ws.end(() => {
+            res.write(`event: progress\ndata: ${JSON.stringify({ step: 'MRSTY', processedFiles: 100, totalFiles: 100, completed: true })}\n\n`);
+            resolve();
+          });
+        });
+        rl.on('error', reject);
+      })
+      .on('error', reject);
+  });
+}
 
 
 function countLinesInFile(filePath) {
@@ -351,6 +380,7 @@ app.get('/api/subsetMetathesaurusProgress', async (req, res) => {
     // 5) Reuse MR files if available
     await reuseFile('MRRANK.RRF');
     await reuseFile('MRCONSO.RRF');
+    await reuseFile('MRSTY.RRF');
 
     // 6) Kick off parallel SAB concats (with optional delay)
     const shouldDelay = extraSources.length > 20;
@@ -391,6 +421,10 @@ app.get('/api/subsetMetathesaurusProgress', async (req, res) => {
     await computePreferences(inputPath, rankPath, tempOutputPath, res);
     fs.renameSync(tempOutputPath, inputPath);
     console.log('✅ computePreferences complete.');
+
+    console.log('📄 Starting MRSTY subset…');
+    await subsetMRSTY(path.join(__dirname, 'META', 'MRSTY.RRF'), inputPath, path.join(folderPath, 'MRSTY.RRF'), res);
+    console.log('✅ MRSTY subset complete.');
 
     // 8) Wait for SAB tasks
     await Promise.all([relTask, satTask, defTask, sabTask]);
