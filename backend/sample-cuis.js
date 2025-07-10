@@ -108,15 +108,20 @@ async function extractLines(filePath, cuis) {
   const diffFile = path.join(outputDir, 'diff.txt');
   fs.writeFileSync(diffFile, diffOutput, 'utf-8');
 
-  // === Non-matching atoms summary ===
-  const nonMatchingMeta = [...metaMap.keys()].filter(aui => !otherMap.has(aui));
-  const nonMatchingOther = [...otherMap.keys()].filter(aui => !metaMap.has(aui));
+  // === Non-matching rows summary ===
+  const nonMatchingMeta = [...metaMap.entries()].filter(([aui]) => !otherMap.has(aui));
+  const nonMatchingOther = [...otherMap.entries()].filter(([aui]) => !metaMap.has(aui));
 
-  const nonMatchSummary = [
-    '\n\n=== Non-matching AUIs ===\n',
-    `In META but not in OTHER: ${nonMatchingMeta.length ? nonMatchingMeta.join(', ') : 'None'}`,
-    `In OTHER but not in META: ${nonMatchingOther.length ? nonMatchingOther.join(', ') : 'None'}`
-  ].join('\n');
+  let nonMatchSummary = '\n\n=== Non-matching rows ===\n\n';
+  nonMatchSummary += 'In META but not in OTHER:\n';
+  nonMatchSummary += nonMatchingMeta.length
+    ? nonMatchingMeta.map(([aui, line]) => line).sort(compareByCuiAui).join('\n') + '\n'
+    : 'None\n';
+
+  nonMatchSummary += '\nIn OTHER but not in META:\n';
+  nonMatchSummary += nonMatchingOther.length
+    ? nonMatchingOther.map(([aui, line]) => line).sort(compareByCuiAui).join('\n') + '\n'
+    : 'None\n';
 
   fs.appendFileSync(diffFile, nonMatchSummary, 'utf-8');
 
@@ -140,13 +145,17 @@ async function extractLines(filePath, cuis) {
 <body>
 ${diffHtml}
 <div class="non-matching">
-  <h3>Non-matching AUIs</h3>
+  <h3>Non-matching rows</h3>
   <pre>
 In META but not in OTHER:
-${nonMatchingMeta.length ? nonMatchingMeta.join(', ') : 'None'}
+${nonMatchingMeta.length
+      ? nonMatchingMeta.map(([aui, line]) => line).sort(compareByCuiAui).join('\n')
+      : 'None'}
 
 In OTHER but not in META:
-${nonMatchingOther.length ? nonMatchingOther.join(', ') : 'None'}
+${nonMatchingOther.length
+      ? nonMatchingOther.map(([aui, line]) => line).sort(compareByCuiAui).join('\n')
+      : 'None'}
   </pre>
 </div>
 </body>

@@ -130,7 +130,6 @@ function computePreferences(mrconsoPath, rankPath, outputPath, res) {
 
         const stream = fs.createReadStream(mrconsoPath, { encoding: 'utf-8', highWaterMark: 64 * 1024 });
         const rl = readline.createInterface({ input: stream, crlfDelay: Infinity });
-
         const writeStream = fs.createWriteStream(outputPath, 'utf-8');
 
         let currentKey = null, currentGroup = [];
@@ -149,25 +148,36 @@ function computePreferences(mrconsoPath, rankPath, outputPath, res) {
 
         const flushGroup = () => {
             if (!currentGroup.length) return;
-            currentGroup.sort((a, b) =>
-                (rankMap[`${a[11]}|${a[12]}`] || 9999) - (rankMap[`${b[11]}|${b[12]}`] || 9999)
-            );
-            const preferredTTY = currentGroup[0][12];
-            currentGroup.forEach((f, i) => {
-                if (i === 0) {
-                    f[2] = 'P'; // TS
-                    f[6] = 'Y'; // ISPREF
-                    f[4] = 'PF'; // STT
+
+            // Separate suppressed and non-suppressed
+            const nonSuppressed = currentGroup.filter(f => f[16] !== 'O');
+            const candidates = nonSuppressed.length ? nonSuppressed : currentGroup;
+
+            // Sort by rank
+            candidates.sort((a, b) => {
+                const rankA = rankMap[`${a[11]}|${a[12]}`] || 9999;
+                const rankB = rankMap[`${b[11]}|${b[12]}`] || 9999;
+                return rankA - rankB;
+            });
+
+            const preferred = candidates[0];
+
+            currentGroup.forEach(f => {
+                const isPreferred = (f === preferred);
+                if (isPreferred) {
+                    f[2] = 'P';   // TS
+                    f[4] = 'PF';  // STT
+                    f[6] = 'Y';   // ISPREF
                 }
-                // For non-preferred atoms, preserve original TS, ISPREF, STT
                 writeStream.write(f.join('|') + '|\n');
             });
+
             currentGroup = [];
         };
 
         rl.on('line', line => {
             const f = line.split('|');
-            const key = `${f[0]}|${f[1]}|${f[11]}`;  // CUI|LAT|SAB for correct grouping
+            const key = `${f[0]}|${f[1]}|${f[11]}|${f[13]}`;  // Group by CUI|LAT|SAB|CODE
             if (currentKey !== null && key !== currentKey) flushGroup();
             currentKey = key;
             currentGroup.push(f);
@@ -193,6 +203,7 @@ function computePreferences(mrconsoPath, rankPath, outputPath, res) {
         });
     });
 }
+
 
 function subsetMRSTY(sourcePath, mrconsoPath, outputPath, res) {
     return new Promise((resolve, reject) => {
