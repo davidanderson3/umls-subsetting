@@ -149,11 +149,9 @@ function computePreferences(mrconsoPath, rankPath, outputPath, res) {
         const flushGroup = () => {
             if (!currentGroup.length) return;
 
-            // Separate suppressed and non-suppressed
             const nonSuppressed = currentGroup.filter(f => f[16] !== 'O');
             const candidates = nonSuppressed.length ? nonSuppressed : currentGroup;
 
-            // Sort by rank
             candidates.sort((a, b) => {
                 const rankA = rankMap[`${a[11]}|${a[12]}`] || 9999;
                 const rankB = rankMap[`${b[11]}|${b[12]}`] || 9999;
@@ -162,13 +160,41 @@ function computePreferences(mrconsoPath, rankPath, outputPath, res) {
 
             const preferred = candidates[0];
 
+            const preferredLUI = preferred[1];  // LUI
+            const preferredLAT = preferred[1];  // LAT
+            const preferredCUI = preferred[0];  // CUI
+            const preferredSAB = preferred[11]; // SAB
+
             currentGroup.forEach(f => {
-                const isPreferred = (f === preferred);
-                if (isPreferred) {
-                    f[2] = 'P';   // TS
-                    f[4] = 'PF';  // STT
-                    f[6] = 'Y';   // ISPREF
+                const lui = f[1];
+                const lat = f[1];
+                const cui = f[0];
+                const sab = f[11];
+
+                if (f === preferred) {
+                    f[2] = 'P';
+                    f[4] = 'PF';
+                    f[6] = 'Y';
+                } else {
+                    f[2] = 'S';
+                    f[6] = 'N';
+
+                    // Compute STT:
+                    if (f[1] !== 'ENG') {
+                        f[4] = 'PF';
+                    } else if (
+                        lui === preferredLUI &&
+                        cui === preferredCUI &&
+                        sab === preferredSAB &&
+                        f[1] === preferredLAT &&
+                        preferred[16] !== 'Y'
+                    ) {
+                        f[4] = 'VCW';
+                    } else {
+                        f[4] = 'PF';
+                    }
                 }
+
                 writeStream.write(f.join('|') + '|\n');
             });
 
@@ -203,6 +229,7 @@ function computePreferences(mrconsoPath, rankPath, outputPath, res) {
         });
     });
 }
+
 
 
 function subsetMRSTY(sourcePath, mrconsoPath, outputPath, res) {
