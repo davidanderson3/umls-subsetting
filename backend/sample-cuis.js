@@ -86,7 +86,7 @@ async function extractLines(filePath, cuis) {
   const diffHtml = Diff2Html.html(Diff2Html.parse(diffOutput), {
     drawFileList: true,
     matching: 'lines',
-    outputFormat: 'line-by-line'
+    outputFormat: 'side-by-side'
   });
 
   const htmlFile = path.join(outputDir, 'diff.html');
