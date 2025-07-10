@@ -138,3 +138,4 @@ backend/META_*
 backend/preprocessed*
 frontend/.angular*
 backend/subset-cache.json
+.zsh_history
