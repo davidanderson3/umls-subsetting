@@ -189,33 +189,53 @@ function computePreferences(mrconsoPath, rankPath, outputPath, res) {
     });
   });
 }
-function subsetMRSTY(sourcePath, mrconsoPath, outputPath, res) {
-  return new Promise((resolve, reject) => {
+async function subsetMRSTY(sourcePath, mrconsoPath, outputPath, res) {
+  return new Promise(async (resolve, reject) => {
     res.write(`event: step\ndata: ${JSON.stringify({ step: 'MRSTY' })}\n\n`);
 
-    const cuis = new Set();
-    readline
-      .createInterface({ input: fs.createReadStream(mrconsoPath, 'utf-8'), crlfDelay: Infinity })
-      .on('line', line => {
-        const f = line.split('|');
-        if (f.length > 0) cuis.add(f[0]);
-      })
-      .on('close', () => {
-        const rl = readline.createInterface({ input: fs.createReadStream(sourcePath, 'utf-8'), crlfDelay: Infinity });
-        const ws = fs.createWriteStream(outputPath, 'utf-8');
-        rl.on('line', line => {
-          const cui = line.split('|')[0];
-          if (cuis.has(cui)) ws.write(line + '\n');
+    try {
+      const totalLines = await countLinesInFile(sourcePath);
+
+      const cuis = new Set();
+      await new Promise((res2, rej2) => {
+        readline
+          .createInterface({ input: fs.createReadStream(mrconsoPath, 'utf-8'), crlfDelay: Infinity })
+          .on('line', line => {
+            const f = line.split('|');
+            if (f.length > 0) cuis.add(f[0]);
+          })
+          .on('close', res2)
+          .on('error', rej2);
+      });
+
+      const rl = readline.createInterface({ input: fs.createReadStream(sourcePath, 'utf-8'), crlfDelay: Infinity });
+      const ws = fs.createWriteStream(outputPath, 'utf-8');
+
+      let processed = 0;
+      const reportInterval = Math.max(1, Math.ceil(totalLines / 100));
+
+      const reportProgress = () => {
+        res.write(`event: progress\ndata: ${JSON.stringify({ step: 'MRSTY', processedFiles: processed, totalFiles: totalLines })}\n\n`);
+      };
+
+      rl.on('line', line => {
+        processed++;
+        const cui = line.split('|')[0];
+        if (cuis.has(cui)) ws.write(line + '\n');
+        if (processed % reportInterval === 0) reportProgress();
+      });
+
+      rl.on('close', () => {
+        ws.end(() => {
+          res.write(`event: progress\ndata: ${JSON.stringify({ step: 'MRSTY', processedFiles: totalLines, totalFiles: totalLines, completed: true })}\n\n`);
+          resolve();
         });
-        rl.on('close', () => {
-          ws.end(() => {
-            res.write(`event: progress\ndata: ${JSON.stringify({ step: 'MRSTY', processedFiles: 100, totalFiles: 100, completed: true })}\n\n`);
-            resolve();
-          });
-        });
-        rl.on('error', reject);
-      })
-      .on('error', reject);
+      });
+
+      rl.on('error', reject);
+    } catch (err) {
+      reject(err);
+    }
   });
 }
 
