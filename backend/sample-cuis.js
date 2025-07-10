@@ -57,8 +57,16 @@ async function extractLines(filePath, cuis) {
   const metaLines = await extractLines(metaPath, cuis);
   const otherLines = await extractLines(otherPath, cuis);
 
-  metaLines.sort();
-  otherLines.sort();
+  function compareByCuiAui(a, b) {
+    const fieldsA = a.split('|');
+    const fieldsB = b.split('|');
+    const cuiCompare = fieldsA[0].localeCompare(fieldsB[0]);
+    if (cuiCompare !== 0) return cuiCompare;
+    return fieldsA[7].localeCompare(fieldsB[7]);
+  }
+
+  metaLines.sort(compareByCuiAui);
+  otherLines.sort(compareByCuiAui);
 
   const metaFile = path.join(outputDir, 'META_MRCONSO.RRF');
   const otherFile = path.join(outputDir, 'A_DIRECTORY_MRCONSO.RRF');
