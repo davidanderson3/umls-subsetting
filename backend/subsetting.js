@@ -203,13 +203,18 @@ function subsetMRSTY(sourcePath, mrconsoPath, outputPath, res) {
             .on('close', () => {
                 const rl = readline.createInterface({ input: fs.createReadStream(sourcePath, 'utf-8'), crlfDelay: Infinity });
                 const ws = fs.createWriteStream(outputPath, 'utf-8');
+                let processedLines = 0;
                 rl.on('line', line => {
+                    processedLines++;
+                    if (processedLines % 50000 === 0) {
+                        res.write(`event: progress\ndata: ${JSON.stringify({ step: 'MRSTY', totalLines: processedLines })}\n\n`);
+                    }
                     const cui = line.split('|')[0];
                     if (cuis.has(cui)) ws.write(line + '\n');
                 });
                 rl.on('close', () => {
                     ws.end(() => {
-                        res.write(`event: progress\ndata: ${JSON.stringify({ step: 'MRSTY', processedFiles: 100, totalFiles: 100, completed: true })}\n\n`);
+                        res.write(`event: progress\ndata: ${JSON.stringify({ step: 'MRSTY', totalLines: processedLines, completed: true })}\n\n`);
                         resolve();
                     });
                 });
