@@ -144,6 +144,15 @@ export class SubsetProgressComponent implements OnInit, OnDestroy {
       return;
     }
 
+    if (step === 'MRSTY' && totalLines != null) {
+      if (this.mrconsoLineCount > 0) {
+        this.progress[step] = Math.round(
+          Math.min((totalLines / this.mrconsoLineCount) * 100, 100)
+        );
+      }
+      return;
+    }
+
     if (processedFiles != null && totalFiles != null) {
       this.progress[step] = Math.round(
         Math.min((processedFiles / totalFiles) * 100, 100)
