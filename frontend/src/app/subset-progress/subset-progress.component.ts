@@ -28,9 +28,9 @@ export class SubsetProgressComponent implements OnInit, OnDestroy {
     'MRDEF',
     'MRREL',
     'MRSAT',
+    'MRSTY',
     'MRCONSO',
     'Compute Preferences',
-    'MRSTY',
     'Compressing'
   ];
 

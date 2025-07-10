@@ -135,7 +135,6 @@ function computePreferences(mrconsoPath, rankPath, outputPath, res) {
 
         let currentKey = null, currentGroup = [];
 
-        // Simulate progress
         let fakeProgress = 0;
         const simulateProgress = setInterval(() => {
             if (fakeProgress < 99) {
@@ -146,16 +145,21 @@ function computePreferences(mrconsoPath, rankPath, outputPath, res) {
                     totalFiles: 100
                 })}\n\n`);
             }
-        }, 250); // ~25 seconds
+        }, 250);
 
         const flushGroup = () => {
             if (!currentGroup.length) return;
-            currentGroup.sort((a, b) => (rankMap[`${a[11]}|${a[12]}`] || 9999) - (rankMap[`${b[11]}|${b[12]}`] || 9999));
+            currentGroup.sort((a, b) =>
+                (rankMap[`${a[11]}|${a[12]}`] || 9999) - (rankMap[`${b[11]}|${b[12]}`] || 9999)
+            );
             const preferredTTY = currentGroup[0][12];
             currentGroup.forEach((f, i) => {
-                f[2] = i === 0 ? 'P' : 'N';
-                f[6] = i === 0 ? 'Y' : 'N';
-                f[4] = f[12] === preferredTTY ? 'PF' : (['SY', 'ET'].includes(f[12]) ? 'SY' : (['AC', 'AT', 'AB'].includes(f[12]) ? 'AC' : 'VC'));
+                if (i === 0) {
+                    f[2] = 'P'; // TS
+                    f[6] = 'Y'; // ISPREF
+                    f[4] = 'PF'; // STT
+                }
+                // For non-preferred atoms, preserve original TS, ISPREF, STT
                 writeStream.write(f.join('|') + '|\n');
             });
             currentGroup = [];
@@ -163,7 +167,7 @@ function computePreferences(mrconsoPath, rankPath, outputPath, res) {
 
         rl.on('line', line => {
             const f = line.split('|');
-            const key = `${f[0]}|${f[11]}`;
+            const key = `${f[0]}|${f[1]}|${f[11]}`;  // CUI|LAT|SAB for correct grouping
             if (currentKey !== null && key !== currentKey) flushGroup();
             currentKey = key;
             currentGroup.push(f);
@@ -189,6 +193,7 @@ function computePreferences(mrconsoPath, rankPath, outputPath, res) {
         });
     });
 }
+
 function subsetMRSTY(sourcePath, mrconsoPath, outputPath, res) {
     return new Promise((resolve, reject) => {
         res.write(`event: step\ndata: ${JSON.stringify({ step: 'MRSTY' })}\n\n`);
