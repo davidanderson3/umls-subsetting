@@ -57,6 +57,30 @@ async function extractLines(filePath, cuis) {
   const metaLines = await extractLines(metaPath, cuis);
   const otherLines = await extractLines(otherPath, cuis);
 
+  function filterMatchingAuis(meta, other) {
+    const metaMap = new Map();
+    for (const line of meta) {
+      const aui = line.split('|')[7];
+      metaMap.set(aui, line);
+    }
+    const otherMap = new Map();
+    for (const line of other) {
+      const aui = line.split('|')[7];
+      otherMap.set(aui, line);
+    }
+    const metaFiltered = [];
+    const otherFiltered = [];
+    for (const [aui, line] of metaMap.entries()) {
+      if (otherMap.has(aui)) {
+        metaFiltered.push(line);
+        otherFiltered.push(otherMap.get(aui));
+      }
+    }
+    return [metaFiltered, otherFiltered];
+  }
+
+  const [metaFiltered, otherFiltered] = filterMatchingAuis(metaLines, otherLines);
+
   function compareByCuiAui(a, b) {
     const fieldsA = a.split('|');
     const fieldsB = b.split('|');
@@ -65,14 +89,14 @@ async function extractLines(filePath, cuis) {
     return fieldsA[7].localeCompare(fieldsB[7]);
   }
 
-  metaLines.sort(compareByCuiAui);
-  otherLines.sort(compareByCuiAui);
+  metaFiltered.sort(compareByCuiAui);
+  otherFiltered.sort(compareByCuiAui);
 
   const metaFile = path.join(outputDir, 'META_MRCONSO.RRF');
   const otherFile = path.join(outputDir, 'A_DIRECTORY_MRCONSO.RRF');
 
-  fs.writeFileSync(metaFile, metaLines.join('\n') + '\n', 'utf-8');
-  fs.writeFileSync(otherFile, otherLines.join('\n') + '\n', 'utf-8');
+  fs.writeFileSync(metaFile, metaFiltered.join('\n') + '\n', 'utf-8');
+  fs.writeFileSync(otherFile, otherFiltered.join('\n') + '\n', 'utf-8');
 
   let diffOutput = '';
   try {
