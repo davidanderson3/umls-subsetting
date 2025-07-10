@@ -160,16 +160,17 @@ function computePreferences(mrconsoPath, rankPath, outputPath, res) {
 
             const preferred = candidates[0];
 
-            const preferredLUI = preferred[1];  // LUI
-            const preferredLAT = preferred[1];  // LAT
-            const preferredCUI = preferred[0];  // CUI
-            const preferredSAB = preferred[11]; // SAB
+            const preferredLUI = preferred[3];
+            const preferredLAT = preferred[1];
+            const preferredCUI = preferred[0];
+            const preferredSAB = preferred[11];
 
             currentGroup.forEach(f => {
-                const lui = f[1];
                 const lat = f[1];
+                const lui = f[3];
                 const cui = f[0];
                 const sab = f[11];
+                const suppress = f[16];
 
                 if (f === preferred) {
                     f[2] = 'P';
@@ -179,15 +180,14 @@ function computePreferences(mrconsoPath, rankPath, outputPath, res) {
                     f[2] = 'S';
                     f[6] = 'N';
 
-                    // Compute STT:
-                    if (f[1] !== 'ENG') {
+                    if (lat !== 'ENG') {
                         f[4] = 'PF';
                     } else if (
                         lui === preferredLUI &&
                         cui === preferredCUI &&
                         sab === preferredSAB &&
-                        f[1] === preferredLAT &&
-                        preferred[16] !== 'Y'
+                        lat === preferredLAT &&
+                        suppress !== 'Y'
                     ) {
                         f[4] = 'VCW';
                     } else {
@@ -200,6 +200,7 @@ function computePreferences(mrconsoPath, rankPath, outputPath, res) {
 
             currentGroup = [];
         };
+
 
         rl.on('line', line => {
             const f = line.split('|');
