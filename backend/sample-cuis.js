@@ -76,10 +76,10 @@ async function extractLines(filePath, cuis) {
         otherFiltered.push(otherMap.get(aui));
       }
     }
-    return [metaFiltered, otherFiltered];
+    return [metaFiltered, otherFiltered, metaMap, otherMap];
   }
 
-  const [metaFiltered, otherFiltered] = filterMatchingAuis(metaLines, otherLines);
+  const [metaFiltered, otherFiltered, metaMap, otherMap] = filterMatchingAuis(metaLines, otherLines);
 
   function compareByCuiAui(a, b) {
     const fieldsA = a.split('|');
@@ -104,8 +104,21 @@ async function extractLines(filePath, cuis) {
   } catch (err) {
     diffOutput = err.stdout || '';
   }
+
   const diffFile = path.join(outputDir, 'diff.txt');
   fs.writeFileSync(diffFile, diffOutput, 'utf-8');
+
+  // === Non-matching atoms summary ===
+  const nonMatchingMeta = [...metaMap.keys()].filter(aui => !otherMap.has(aui));
+  const nonMatchingOther = [...otherMap.keys()].filter(aui => !metaMap.has(aui));
+
+  const nonMatchSummary = [
+    '\n\n=== Non-matching AUIs ===\n',
+    `In META but not in OTHER: ${nonMatchingMeta.length ? nonMatchingMeta.join(', ') : 'None'}`,
+    `In OTHER but not in META: ${nonMatchingOther.length ? nonMatchingOther.join(', ') : 'None'}`
+  ].join('\n');
+
+  fs.appendFileSync(diffFile, nonMatchSummary, 'utf-8');
 
   const diffHtml = Diff2Html.html(Diff2Html.parse(diffOutput), {
     drawFileList: true,
@@ -119,9 +132,23 @@ async function extractLines(filePath, cuis) {
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css">
+  <style>
+    pre { white-space: pre-wrap; word-break: break-word; }
+    .non-matching { padding: 1em; background-color: #f9f9f9; border-top: 1px solid #ccc; }
+  </style>
 </head>
 <body>
 ${diffHtml}
+<div class="non-matching">
+  <h3>Non-matching AUIs</h3>
+  <pre>
+In META but not in OTHER:
+${nonMatchingMeta.length ? nonMatchingMeta.join(', ') : 'None'}
+
+In OTHER but not in META:
+${nonMatchingOther.length ? nonMatchingOther.join(', ') : 'None'}
+  </pre>
+</div>
 </body>
 </html>`;
   fs.writeFileSync(htmlFile, htmlContent, 'utf-8');
