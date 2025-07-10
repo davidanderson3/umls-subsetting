@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
+const { execSync } = require('child_process');
 
 const otherDir = process.argv[2];
 if (!otherDir) {
@@ -34,25 +35,45 @@ async function sampleCuis(filePath, sampleSize) {
   return sample;
 }
 
-async function extractLines(filePath, cuis, outputPath) {
+async function extractLines(filePath, cuis) {
   const cuiSet = new Set(cuis);
   const rl = readline.createInterface({
     input: fs.createReadStream(filePath, { encoding: 'utf-8' }),
     crlfDelay: Infinity
   });
-  const ws = fs.createWriteStream(outputPath, { encoding: 'utf-8' });
+  const lines = [];
   for await (const line of rl) {
     const cui = line.split('|')[0];
-    if (cuiSet.has(cui)) ws.write(line + '\n');
+    if (cuiSet.has(cui)) lines.push(line);
   }
-  ws.end();
-  await new Promise(resolve => ws.on('finish', resolve));
+  return lines;
 }
 
 (async () => {
   const sampleSize = 30;
   const cuis = await sampleCuis(metaPath, sampleSize);
-  await extractLines(metaPath, cuis, path.join(outputDir, 'META_MRCONSO.RRF'));
-  await extractLines(otherPath, cuis, path.join(outputDir, 'A_DIRECTORY_MRCONSO.RRF'));
+
+  const metaLines = await extractLines(metaPath, cuis);
+  const otherLines = await extractLines(otherPath, cuis);
+
+  metaLines.sort();
+  otherLines.sort();
+
+  const metaFile = path.join(outputDir, 'META_MRCONSO.RRF');
+  const otherFile = path.join(outputDir, 'A_DIRECTORY_MRCONSO.RRF');
+
+  fs.writeFileSync(metaFile, metaLines.join('\n') + '\n', 'utf-8');
+  fs.writeFileSync(otherFile, otherLines.join('\n') + '\n', 'utf-8');
+
+  let diffOutput = '';
+  try {
+    diffOutput = execSync(`diff -u ${metaFile} ${otherFile}`, { encoding: 'utf-8' });
+  } catch (err) {
+    diffOutput = err.stdout || '';
+  }
+  const diffFile = path.join(outputDir, 'diff.txt');
+  fs.writeFileSync(diffFile, diffOutput, 'utf-8');
+
   console.log('Sampled CUIs saved to', outputDir);
+  console.log('Diff written to', diffFile);
 })();
