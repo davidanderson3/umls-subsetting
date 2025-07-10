@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 const { execSync } = require('child_process');
+const Diff2Html = require('diff2html');
 
 const otherDir = process.argv[2];
 if (!otherDir) {
@@ -74,6 +75,26 @@ async function extractLines(filePath, cuis) {
   const diffFile = path.join(outputDir, 'diff.txt');
   fs.writeFileSync(diffFile, diffOutput, 'utf-8');
 
+  const diffHtml = Diff2Html.html(Diff2Html.parse(diffOutput), {
+    drawFileList: true,
+    matching: 'lines',
+    outputFormat: 'line-by-line'
+  });
+
+  const htmlFile = path.join(outputDir, 'diff.html');
+  const htmlContent = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css">
+</head>
+<body>
+${diffHtml}
+</body>
+</html>`;
+  fs.writeFileSync(htmlFile, htmlContent, 'utf-8');
+
   console.log('Sampled CUIs saved to', outputDir);
   console.log('Diff written to', diffFile);
+  console.log('HTML diff written to', htmlFile);
 })();
